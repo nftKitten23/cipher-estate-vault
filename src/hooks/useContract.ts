@@ -107,3 +107,33 @@ export const useGetPropertyInfo = (propertyId: number) => {
 
   return { data, isLoading, error };
 };
+
+export const useDepositFunds = () => {
+  const { write, isLoading, error } = useContractWrite({
+    address: CONTRACT_ADDRESS,
+    abi: CONTRACT_ABI,
+    functionName: 'depositFunds',
+  });
+
+  return { write, isLoading, error };
+};
+
+export const useWithdrawFunds = () => {
+  const { write, isLoading, error } = useContractWrite({
+    address: CONTRACT_ADDRESS,
+    abi: CONTRACT_ABI,
+    functionName: 'withdrawFunds',
+  });
+
+  return { write, isLoading, error };
+};
+
+export const useTransferFunds = () => {
+  const { write, isLoading, error } = useContractWrite({
+    address: CONTRACT_ADDRESS,
+    abi: CONTRACT_ABI,
+    functionName: 'transferFunds',
+  });
+
+  return { write, isLoading, error };
+};

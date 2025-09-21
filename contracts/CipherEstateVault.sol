@@ -266,14 +266,20 @@ contract CipherEstateVault {
         return 0;
     }
     
-    function deposit() public payable {
-        require(msg.value > 0, "Deposit amount must be greater than 0");
-        userBalance[msg.sender] = userBalance[msg.sender] + Fhe.asEuint32(uint32(msg.value));
+    function depositFunds(euint32 amount) public {
+        require(Fhe.decrypt(amount) > 0, "Deposit amount must be greater than 0");
+        userBalance[msg.sender] = userBalance[msg.sender] + amount;
     }
     
-    function withdraw(uint32 amount) public {
-        require(Fhe.decrypt(userBalance[msg.sender]) >= amount, "Insufficient balance");
-        userBalance[msg.sender] = userBalance[msg.sender] - Fhe.asEuint32(amount);
-        payable(msg.sender).transfer(amount);
+    function withdrawFunds(euint32 amount) public {
+        require(Fhe.decrypt(userBalance[msg.sender]) >= Fhe.decrypt(amount), "Insufficient balance");
+        userBalance[msg.sender] = userBalance[msg.sender] - amount;
+    }
+    
+    function transferFunds(address to, euint32 amount) public {
+        require(to != address(0), "Invalid recipient address");
+        require(Fhe.decrypt(userBalance[msg.sender]) >= Fhe.decrypt(amount), "Insufficient balance");
+        userBalance[msg.sender] = userBalance[msg.sender] - amount;
+        userBalance[to] = userBalance[to] + amount;
     }
 }

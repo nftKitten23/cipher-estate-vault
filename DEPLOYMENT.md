@@ -50,13 +50,13 @@ In Vercel Dashboard:
 1. Go to your project dashboard
 2. Click **"Settings"** tab
 3. Click **"Environment Variables"** in the left sidebar
-4. Add the following variables:
+4. Add the following variables with your own values:
 
 ```
 NEXT_PUBLIC_CHAIN_ID = 11155111
-NEXT_PUBLIC_RPC_URL = https://sepolia.infura.io/v3/b18fb7e6ca7045ac83c41157ab93f990
-NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID = 2ec9743d0d0cd7fb94dee1a7e6d33475
-NEXT_PUBLIC_INFURA_API_KEY = b18fb7e6ca7045ac83c41157ab93f990
+NEXT_PUBLIC_RPC_URL = your_rpc_url_here
+NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID = your_project_id_here
+NEXT_PUBLIC_INFURA_API_KEY = your_api_key_here
 ```
 
 5. Click **"Save"** for each variable

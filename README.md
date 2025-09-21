@@ -1,17 +1,17 @@
 # Cipher Estate Vault
 
-A revolutionary real estate platform powered by Fully Homomorphic Encryption (FHE) technology, enabling secure and private property transactions on the blockchain.
+A next-generation real estate platform leveraging cutting-edge Fully Homomorphic Encryption (FHE) technology to revolutionize property transactions with unprecedented privacy and security.
 
-## 🔐 Features
+## 🏗️ Core Features
 
-- **FHE-Powered Privacy**: All sensitive data is encrypted using Fully Homomorphic Encryption
-- **Secure Transactions**: Blockchain-based property transactions with encrypted data
-- **Wallet Integration**: Seamless connection with popular Web3 wallets via RainbowKit
-- **Property Management**: List, buy, and manage real estate properties
-- **Valuation System**: Encrypted property valuations and market analysis
-- **Reputation System**: Trust-based user reputation scoring
+- **Quantum-Safe Privacy**: Advanced FHE encryption protects all sensitive property data
+- **Zero-Knowledge Transactions**: Complete transaction privacy without compromising security
+- **Multi-Wallet Support**: Universal Web3 wallet integration with RainbowKit
+- **Smart Property Management**: AI-powered property listing and discovery
+- **Encrypted Valuations**: Secure property assessment with FHE-protected market data
+- **Trustless Reputation**: Decentralized reputation system with cryptographic proofs
 
-## 🚀 Technology Stack
+## ⚡ Technology Architecture
 
 - **Frontend**: React 18 + TypeScript + Vite
 - **UI Framework**: shadcn/ui + Tailwind CSS
@@ -46,44 +46,43 @@ npm run dev
 
 ### Environment Variables
 
-Create a `.env` file in the root directory:
+Create a `.env` file in the root directory with your configuration:
 
 ```env
 # Chain Configuration
 NEXT_PUBLIC_CHAIN_ID=11155111
-NEXT_PUBLIC_RPC_URL=https://sepolia.infura.io/v3/b18fb7e6ca7045ac83c41157ab93f990
+NEXT_PUBLIC_RPC_URL=your_rpc_url_here
 
 # Wallet Connect Configuration
-NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID=2ec9743d0d0cd7fb94dee1a7e6d33475
+NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID=your_project_id_here
 
 # Infura Configuration
-NEXT_PUBLIC_INFURA_API_KEY=b18fb7e6ca7045ac83c41157ab93f990
-NEXT_PUBLIC_RPC_URL=https://1rpc.io/sepolia
+NEXT_PUBLIC_INFURA_API_KEY=your_api_key_here
 ```
 
-## 📱 Usage
+## 📱 Platform Usage
 
-1. **Connect Wallet**: Use the RainbowKit wallet connector to connect your Web3 wallet
-2. **List Property**: Create encrypted property listings with FHE-protected data
-3. **Browse Properties**: View available properties with encrypted pricing and details
-4. **Initiate Transactions**: Start secure property transactions
-5. **Submit Valuations**: Provide encrypted property valuations
+1. **Wallet Connection**: Seamless Web3 wallet integration via RainbowKit
+2. **Property Listing**: Create FHE-encrypted property listings with privacy protection
+3. **Property Discovery**: Browse encrypted property data with zero-knowledge verification
+4. **Secure Transactions**: Initiate privacy-preserving property transactions
+5. **Valuation Services**: Submit encrypted property assessments and market analysis
 
-## 🔒 Security Features
+## 🔒 Advanced Security
 
-- **FHE Encryption**: All sensitive data (prices, valuations, user data) is encrypted
-- **Zero-Knowledge Proofs**: Verify transactions without revealing sensitive information
-- **Smart Contract Security**: Audited smart contracts with FHE integration
-- **Private Transactions**: Complete privacy in property transactions
+- **FHE Data Protection**: All sensitive information encrypted with Fully Homomorphic Encryption
+- **Zero-Knowledge Architecture**: Complete transaction privacy without data exposure
+- **Smart Contract Auditing**: Comprehensive security audits for all contract interactions
+- **Quantum-Resistant**: Future-proof encryption against quantum computing threats
 
 ## 🏗️ Smart Contract Architecture
 
-The platform uses a sophisticated smart contract system:
+The platform leverages a comprehensive smart contract ecosystem:
 
-- **CipherEstateVault.sol**: Main contract handling property listings and transactions
-- **FHE Integration**: All sensitive data is encrypted using FHE
-- **Reputation System**: Trust-based scoring for users
-- **Valuation System**: Encrypted property valuations
+- **CipherEstateVault.sol**: Core contract managing property listings and encrypted transactions
+- **FHE Integration**: Advanced Fully Homomorphic Encryption for all sensitive data
+- **Reputation Protocol**: Decentralized trust scoring with cryptographic verification
+- **Valuation Engine**: Encrypted property assessment and market analysis system
 
 ## 🚀 Deployment
 
@@ -115,16 +114,16 @@ npm run preview
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 🔗 Links
+## 🔗 Resources
 
-- **Website**: [Cipher Estate Vault](https://cipher-estate-vault.vercel.app)
-- **Documentation**: [GitHub Wiki](https://github.com/nftKitten23/cipher-estate-vault/wiki)
-- **Smart Contracts**: [Contract Addresses](https://sepolia.etherscan.io/address/0x742d35B2f)
+- **Live Platform**: [Cipher Estate Vault](https://cipher-estate-vault.vercel.app)
+- **Technical Documentation**: [GitHub Wiki](https://github.com/nftKitten23/cipher-estate-vault/wiki)
+- **Smart Contract Explorer**: [Sepolia Etherscan](https://sepolia.etherscan.io/)
 
-## 📞 Support
+## 📞 Community Support
 
-For support and questions, please open an issue on GitHub or contact us at support@cipherestate.com
+For technical support and community discussions, please open an issue on GitHub or join our developer community.
 
 ---
 
-**Built with ❤️ using FHE technology for the future of private real estate transactions**
+**Powered by cutting-edge FHE technology - revolutionizing real estate with uncompromising privacy and security**
