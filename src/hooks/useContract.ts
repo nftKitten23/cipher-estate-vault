@@ -1,7 +1,7 @@
 import { useContract, useContractWrite, useContractRead } from 'wagmi';
 import { useState } from 'react';
 
-// Contract ABI - This would be generated from the compiled contract
+// Contract ABI - Updated for FHE-enabled CipherEstateVault contract
 const CONTRACT_ABI = [
   {
     "inputs": [
@@ -62,6 +62,34 @@ const CONTRACT_ABI = [
       {"internalType": "uint256", "name": "timestamp", "type": "uint256"}
     ],
     "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {"internalType": "uint32", "name": "amount", "type": "uint32"}
+    ],
+    "name": "depositFunds",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {"internalType": "uint32", "name": "amount", "type": "uint32"}
+    ],
+    "name": "withdrawFunds",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {"internalType": "address", "name": "to", "type": "address"},
+      {"internalType": "uint32", "name": "amount", "type": "uint32"}
+    ],
+    "name": "transferFunds",
+    "outputs": [],
+    "stateMutability": "nonpayable",
     "type": "function"
   }
 ];

@@ -1,12 +1,12 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.19;
 
-import "@fhevm/lib/Reencrypt.sol";
-import "@fhevm/lib/Fhe.sol";
+import { SepoliaConfig } from "@fhevm/solidity/config/ZamaConfig.sol";
+import { euint32, externalEuint32, euint64, ebool, FHE } from "@fhevm/solidity/lib/FHE.sol";
 
 contract CipherEstateVault {
-    using Fhe for euint32;
-    using Fhe for ebool;
+    using FHE for euint32;
+    using FHE for ebool;
     
     struct Property {
         euint32 propertyId;
@@ -84,8 +84,8 @@ contract CipherEstateVault {
             area: _area,
             bedrooms: _bedrooms,
             bathrooms: _bathrooms,
-            isAvailable: Fhe.asEbool(true),
-            isVerified: Fhe.asEbool(false),
+            isAvailable: FHE.asEbool(true),
+            isVerified: FHE.asEbool(false),
             location: _location,
             description: _description,
             owner: msg.sender,
@@ -101,7 +101,7 @@ contract CipherEstateVault {
         euint32 amount
     ) public returns (uint256) {
         require(properties[propertyId].owner != address(0), "Property does not exist");
-        require(Fhe.decrypt(properties[propertyId].isAvailable), "Property is not available");
+        require(FHE.decrypt(properties[propertyId].isAvailable), "Property is not available");
         require(properties[propertyId].owner != msg.sender, "Cannot buy your own property");
         
         uint256 transactionId = transactionCounter++;
@@ -109,7 +109,7 @@ contract CipherEstateVault {
         transactions[transactionId] = Transaction({
             transactionId: amount, // Will be set properly
             amount: amount,
-            isCompleted: Fhe.asEbool(false),
+            isCompleted: FHE.asEbool(false),
             buyer: msg.sender,
             seller: properties[propertyId].owner,
             timestamp: block.timestamp
@@ -134,7 +134,7 @@ contract CipherEstateVault {
             valuationId: estimatedValue, // Will be set properly
             estimatedValue: estimatedValue,
             marketTrend: marketTrend,
-            isVerified: Fhe.asEbool(false),
+            isVerified: FHE.asEbool(false),
             reportHash: reportHash,
             appraiser: msg.sender,
             timestamp: block.timestamp
@@ -147,16 +147,16 @@ contract CipherEstateVault {
     function completeTransaction(uint256 transactionId) public {
         require(transactions[transactionId].buyer != address(0), "Transaction does not exist");
         require(transactions[transactionId].seller == msg.sender, "Only seller can complete transaction");
-        require(!Fhe.decrypt(transactions[transactionId].isCompleted), "Transaction already completed");
+        require(!FHE.decrypt(transactions[transactionId].isCompleted), "Transaction already completed");
         
         // Mark transaction as completed
-        transactions[transactionId].isCompleted = Fhe.asEbool(true);
+        transactions[transactionId].isCompleted = FHE.asEbool(true);
         
         // Update property ownership and availability
         uint256 propertyId = findPropertyByTransaction(transactionId);
         if (propertyId != 0) {
             properties[propertyId].owner = transactions[transactionId].buyer;
-            properties[propertyId].isAvailable = Fhe.asEbool(false);
+            properties[propertyId].isAvailable = FHE.asEbool(false);
             
             emit PropertySold(propertyId, transactions[transactionId].buyer, msg.sender);
         }
@@ -181,7 +181,7 @@ contract CipherEstateVault {
         require(user != address(0), "Invalid user address");
         
         userReputation[user] = reputation;
-        emit ReputationUpdated(user, Fhe.decrypt(reputation));
+        emit ReputationUpdated(user, FHE.decrypt(reputation));
     }
     
     function getPropertyInfo(uint256 propertyId) public view returns (
@@ -200,12 +200,12 @@ contract CipherEstateVault {
         return (
             property.location,
             property.description,
-            Fhe.decrypt(property.price),
-            Fhe.decrypt(property.area),
-            Fhe.decrypt(property.bedrooms),
-            Fhe.decrypt(property.bathrooms),
-            Fhe.decrypt(property.isAvailable),
-            Fhe.decrypt(property.isVerified),
+            FHE.decrypt(property.price),
+            FHE.decrypt(property.area),
+            FHE.decrypt(property.bedrooms),
+            FHE.decrypt(property.bathrooms),
+            FHE.decrypt(property.isAvailable),
+            FHE.decrypt(property.isVerified),
             property.owner,
             property.timestamp
         );
@@ -220,8 +220,8 @@ contract CipherEstateVault {
     ) {
         Transaction storage transaction = transactions[transactionId];
         return (
-            Fhe.decrypt(transaction.amount),
-            Fhe.decrypt(transaction.isCompleted),
+            FHE.decrypt(transaction.amount),
+            FHE.decrypt(transaction.isCompleted),
             transaction.buyer,
             transaction.seller,
             transaction.timestamp
@@ -238,9 +238,9 @@ contract CipherEstateVault {
     ) {
         Valuation storage valuation = valuations[valuationId];
         return (
-            Fhe.decrypt(valuation.estimatedValue),
-            Fhe.decrypt(valuation.marketTrend),
-            Fhe.decrypt(valuation.isVerified),
+            FHE.decrypt(valuation.estimatedValue),
+            FHE.decrypt(valuation.marketTrend),
+            FHE.decrypt(valuation.isVerified),
             valuation.reportHash,
             valuation.appraiser,
             valuation.timestamp
@@ -248,11 +248,11 @@ contract CipherEstateVault {
     }
     
     function getUserReputation(address user) public view returns (uint32) {
-        return Fhe.decrypt(userReputation[user]);
+        return FHE.decrypt(userReputation[user]);
     }
     
     function getUserBalance(address user) public view returns (uint32) {
-        return Fhe.decrypt(userBalance[user]);
+        return FHE.decrypt(userBalance[user]);
     }
     
     function findPropertyByTransaction(uint256 transactionId) internal view returns (uint256) {
@@ -267,18 +267,18 @@ contract CipherEstateVault {
     }
     
     function depositFunds(euint32 amount) public {
-        require(Fhe.decrypt(amount) > 0, "Deposit amount must be greater than 0");
+        require(FHE.decrypt(amount) > 0, "Deposit amount must be greater than 0");
         userBalance[msg.sender] = userBalance[msg.sender] + amount;
     }
     
     function withdrawFunds(euint32 amount) public {
-        require(Fhe.decrypt(userBalance[msg.sender]) >= Fhe.decrypt(amount), "Insufficient balance");
+        require(FHE.decrypt(userBalance[msg.sender]) >= FHE.decrypt(amount), "Insufficient balance");
         userBalance[msg.sender] = userBalance[msg.sender] - amount;
     }
     
     function transferFunds(address to, euint32 amount) public {
         require(to != address(0), "Invalid recipient address");
-        require(Fhe.decrypt(userBalance[msg.sender]) >= Fhe.decrypt(amount), "Insufficient balance");
+        require(FHE.decrypt(userBalance[msg.sender]) >= FHE.decrypt(amount), "Insufficient balance");
         userBalance[msg.sender] = userBalance[msg.sender] - amount;
         userBalance[to] = userBalance[to] + amount;
     }
